@@ -1,0 +1,17 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "chat app",
+  "scripts": {
+    "dev-all": "concurrently \"pnpm dev dev-client\" \"pnpm dev dev-server\"",
+    "dev-client": "cd frontend && pnpm dev",
+    "dev-server": "cd backend && pnpm dev"
+  },
+  "author": "skywkie",
+  "license": "MIT",
+  "packageManager": "pnpm@10.12.3",
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "prettier": "3.6.2"
+  }
+}

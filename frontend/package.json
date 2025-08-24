@@ -5,6 +5,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "lint:css": "stylelint \"**/*.css\" --cache",
+    "lint:css:fix": "stylelint \"**/*.css\" --fix --cache",
     "preview": "vite preview",
     "prettier-check": "prettier --check .",
     "prettier-run": "prettier --write ."
@@ -26,6 +28,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "stylelint": "^16.23.1",
+    "stylelint-config-prettier": "^9.0.5",
     "stylelint-config-standard": "^39.0.0",
     "stylelint-prettier": "^5.0.3",
     "typescript": "~5.8.3",

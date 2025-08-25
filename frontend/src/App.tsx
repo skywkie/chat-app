@@ -1,5 +1,9 @@
-function App() {
-  return <div>App</div>;
-}
+import SignIn from "./components/pages/sign-in";
 
-export default App;
+export default function App() {
+  return (
+    <div>
+      <SignIn />
+    </div>
+  );
+}

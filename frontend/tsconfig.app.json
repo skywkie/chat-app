@@ -21,7 +21,14 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Alias */
+    "baseUrl": "./",
+    "paths": {
+      "@ui/*": ["./src/components/ui/*"],
+      "@pages/*": ["./src/components/pages/*"]
+    }
   },
   "include": ["src"]
 }

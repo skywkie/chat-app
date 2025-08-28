@@ -27,6 +27,8 @@
     "baseUrl": "./",
     "paths": {
       "@ui/*": ["./src/components/ui/*"],
+      "@layouts/*": ["./src/components/layouts/*"],
+      "@widgets/*": ["./src/components/widgets/*"],
       "@pages/*": ["./src/components/pages/*"]
     }
   },

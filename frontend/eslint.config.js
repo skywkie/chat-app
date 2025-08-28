@@ -9,6 +9,7 @@ export default tseslint.config([
   globalIgnores(["docs"]),
   {
     files: ["**/*.{ts,tsx}"],
+    ignores: [".idea/*"],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,

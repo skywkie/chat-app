@@ -1,13 +1,13 @@
+import { BrowserRouter } from "react-router";
+
 import AppLayout from "@layouts/app-layout";
 
-// import SignIn from "@pages/sign-in";
-import SignUp from "@pages/sign-up";
+import renderRoutes from "@libs/router";
 
 export default function App() {
   return (
     <AppLayout>
-      {/* <SignIn /> */}
-      <SignUp />
+      <BrowserRouter basename="chat-app">{renderRoutes()}</BrowserRouter>
     </AppLayout>
   );
 }

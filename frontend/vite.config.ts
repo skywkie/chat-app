@@ -10,11 +10,12 @@ export default defineConfig({
   mode: "development",
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      "@src": path.resolve(__dirname, "./src"),
       "@pages": path.resolve(__dirname, "./src/components/pages"),
       "@widgets": path.resolve(__dirname, "./src/components/widgets"),
       "@layouts": path.resolve(__dirname, "./src/components/layouts"),
       "@ui": path.resolve(__dirname, "./src/components/ui"),
+      "@libs": path.resolve(__dirname, "./src/libs"),
       "@styles": path.resolve(__dirname, "./src/assets/styles"),
     },
   },

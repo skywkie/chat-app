@@ -2,6 +2,7 @@ import { useState, type ChangeEvent } from "react";
 
 import AuthInput from "@ui/Inputs/auth-input";
 import AuthButton from "@ui/Buttons/auth-button";
+
 import AuthInputLayout from "@layouts/auth-input-layout";
 
 interface UserData {
@@ -9,7 +10,7 @@ interface UserData {
   password: string;
 }
 
-export default function AuthForm() {
+export default function SignInForm() {
   const [userData, setUserData] = useState<UserData>({ username: "", password: "" });
 
   const onSubmit = (event: ChangeEvent<HTMLFormElement>) => {

@@ -1,12 +1,12 @@
 import { type ComponentPropsWithoutRef } from "react";
 
-import clsx from "clsx";
+import { clsx } from "clsx";
 
 interface AuthInputProps extends ComponentPropsWithoutRef<"input"> {
   label: string;
 }
 
-export default function AuthInput({ label, className, ...rest }: AuthInputProps) {
+export default function AuthInputt({ label, className, ...rest }: AuthInputProps) {
   return (
     <div className={clsx("relative w-2/5 min-w-36", className)} {...rest}>
       <input

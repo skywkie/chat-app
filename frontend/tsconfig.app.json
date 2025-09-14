@@ -26,12 +26,13 @@
     /* Alias */
     "baseUrl": "./",
     "paths": {
-      "@src/*": ["./src/*"],
       "@ui/*": ["./src/components/ui/*"],
       "@layouts/*": ["./src/components/layouts/*"],
       "@widgets/*": ["./src/components/widgets/*"],
       "@pages/*": ["./src/components/pages/*"],
-      "@libs/*": ["./src/libs/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@libs/*": ["./src/libs/*"],
+      "@src/*": ["./src/*"]
     }
   },
   "include": ["src"]

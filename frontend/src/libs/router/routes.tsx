@@ -1,14 +1,24 @@
-import SignIn from "@src/components/pages/sign-in";
-import SignUp from "@src/components/pages/sign-up";
+import AuthPageLayout from "@layouts/auth-page-layout";
+
+import SignIn from "@pages/sign-in";
+import SignUp from "@pages/sign-up";
 
 const ROUTES = [
   {
     path: "/",
-    element: <SignIn />,
+    element: (
+      <AuthPageLayout>
+        <SignIn />
+      </AuthPageLayout>
+    ),
   },
   {
     path: "/sign-up",
-    element: <SignUp />,
+    element: (
+      <AuthPageLayout>
+        <SignUp />
+      </AuthPageLayout>
+    ),
   },
 ];
 

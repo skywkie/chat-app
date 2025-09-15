@@ -5,5 +5,5 @@ interface AppLayoutProps {
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
-  return <div className="h-full w-full md:h-5/6 md:w-7/8 md:rounded-4xl bg-[#222630]">{children}</div>;
+  return <div className="h-full w-full md:h-5/6 md:w-3/4 md:rounded-4xl bg-[#1d232f]">{children}</div>;
 }

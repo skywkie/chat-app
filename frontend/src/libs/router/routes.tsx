@@ -1,24 +1,20 @@
-import AuthPageLayout from "@layouts/auth-page-layout";
-
 import SignIn from "@pages/sign-in";
 import SignUp from "@pages/sign-up";
+
+import { Navigate } from "react-router";
 
 const ROUTES = [
   {
     path: "/",
-    element: (
-      <AuthPageLayout>
-        <SignIn />
-      </AuthPageLayout>
-    ),
+    element: <Navigate to="/sign-in" />,
+  },
+  {
+    path: "/sign-in",
+    element: <SignIn />,
   },
   {
     path: "/sign-up",
-    element: (
-      <AuthPageLayout>
-        <SignUp />
-      </AuthPageLayout>
-    ),
+    element: <SignUp />,
   },
 ];
 

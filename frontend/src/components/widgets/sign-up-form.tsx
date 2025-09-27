@@ -1,9 +1,10 @@
 import { useState, type ChangeEvent } from "react";
 
-import AuthInput from "@ui/Inputs/auth-input";
-import AuthButton from "@ui/Buttons/auth-button";
+import AuthInput from "@ui/inputs/auth-input";
+import AuthButton from "@ui/buttons/auth-button";
 
 import AuthInputLayout from "@layouts/auth-input-layout";
+import AuthLinkPrompt from "@ui/prompts/auth-link";
 
 interface UserData {
   username: string;
@@ -26,13 +27,18 @@ export default function SignUpForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="h-2/3 w-full flex flex-col items-center justify-evenly">
-      <AuthInputLayout>
+    <form onSubmit={onSubmit} className="h-3/4 w-full flex flex-col items-center justify-evenly">
+      <AuthInputLayout className="h-7/10">
         <AuthInput name="username" label="Username" onChange={onChange} />
         <AuthInput name="password" label="Password" onChange={onChange} />
         <AuthInput name="repeatPassword" label="Repeat password" onChange={onChange} />
       </AuthInputLayout>
-      <AuthButton>Sign In</AuthButton>
+      <div>
+        <AuthButton>Sign In</AuthButton>
+        <AuthLinkPrompt to="/sign-in" linkText="Sign In">
+          Already have an account?{" "}
+        </AuthLinkPrompt>
+      </div>
     </form>
   );
 }

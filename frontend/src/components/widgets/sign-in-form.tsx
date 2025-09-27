@@ -1,9 +1,10 @@
 import { useState, type ChangeEvent } from "react";
 
-import AuthInput from "@ui/Inputs/auth-input";
-import AuthButton from "@ui/Buttons/auth-button";
+import AuthInput from "@ui/inputs/auth-input";
+import AuthButton from "@ui/buttons/auth-button";
 
 import AuthInputLayout from "@layouts/auth-input-layout";
+import AuthLinkPrompt from "@ui/prompts/auth-link";
 
 interface UserData {
   username: string;
@@ -30,7 +31,12 @@ export default function SignInForm() {
         <AuthInput name="username" label="Username" onChange={onChange} />
         <AuthInput name="password" label="Password" onChange={onChange} />
       </AuthInputLayout>
-      <AuthButton>Sign In</AuthButton>
+      <div>
+        <AuthButton>Sign In</AuthButton>
+        <AuthLinkPrompt to="/sign-up" linkText="Create an account">
+          New here?{" "}
+        </AuthLinkPrompt>
+      </div>
     </form>
   );
 }

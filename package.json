@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "chat app",
   "scripts": {
-    "dev-all": "concurrently \"pnpm dev dev-client\" \"pnpm dev dev-server\"",
+    "dev-all": "concurrently \"pnpm dev-client\" \"pnpm dev-server\"",
     "dev-client": "cd frontend && pnpm dev",
     "dev-server": "cd backend && pnpm dev"
   },

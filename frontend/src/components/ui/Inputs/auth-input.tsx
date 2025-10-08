@@ -1,19 +1,21 @@
-import { type ComponentPropsWithoutRef } from "react";
+import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 import { clsx } from "clsx";
 
 interface AuthInputProps extends ComponentPropsWithoutRef<"input"> {
+  children?: ReactNode;
   label: string;
 }
 
-export default function AuthInputt({ label, className, ...rest }: AuthInputProps) {
+export const AuthInput = ({ children, label, className, ...rest }: AuthInputProps) => {
   return (
-    <div className={clsx("relative w-2/5 min-w-50", className)} {...rest}>
+    <div className={clsx("relative w-1/2 min-w-50", className)}>
       <input
         className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700
 				transition-colors focus:outline-none peer bg-inherit w-full leading-9 text-2xl"
         placeholder=""
         id={label}
+        {...rest}
       />
       <label
         htmlFor={label}
@@ -23,6 +25,7 @@ export default function AuthInputt({ label, className, ...rest }: AuthInputProps
       >
         {label}
       </label>
+      {children}
     </div>
   );
-}
+};

@@ -1,22 +1,28 @@
 import { useState, type ChangeEvent } from "react";
 
-import AuthInput from "@ui/inputs/auth-input";
-import AuthButton from "@ui/buttons/auth-button";
+import { AuthInput } from "@ui/inputs/auth-input";
+import { AuthButton } from "@ui/buttons/auth-button";
 
-import AuthInputLayout from "@layouts/auth-input-layout";
-import AuthLinkPrompt from "@ui/prompts/auth-link";
+import { AuthInputLayout } from "@layouts/auth-input-layout";
+import { AuthLinkPrompt } from "@ui/prompts/auth-link";
 
 interface UserData {
   username: string;
   password: string;
 }
 
-export default function SignInForm() {
+export const SignInForm = () => {
   const [userData, setUserData] = useState<UserData>({ username: "", password: "" });
 
   const onSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
+
+  // await fetch("http://localhost:5000/sign-up", {
+  //   method: "POST",
+  //   body: JSON.stringify(userData),
+  //   headers: { "Content-type": "application/json" },
+  // }).then((res) => console.log(res));
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUserData({
@@ -39,4 +45,4 @@ export default function SignInForm() {
       </div>
     </form>
   );
-}
+};

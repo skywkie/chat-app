@@ -7,7 +7,7 @@ interface AuthLinkPromptProps {
   to: "/sign-in" | "/sign-up";
 }
 
-export default function AuthLinkPrompt({ children, linkText, to }: AuthLinkPromptProps) {
+export const AuthLinkPrompt = ({ children, linkText, to }: AuthLinkPromptProps) => {
   return (
     <div>
       <p>
@@ -18,4 +18,4 @@ export default function AuthLinkPrompt({ children, linkText, to }: AuthLinkPromp
       </p>
     </div>
   );
-}
+};

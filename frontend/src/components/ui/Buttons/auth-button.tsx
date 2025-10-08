@@ -6,7 +6,7 @@ interface AuthButtonProps extends ComponentPropsWithoutRef<"button"> {
   children: ReactNode;
 }
 
-export default function AuthButton({ children, className, ...rest }: AuthButtonProps) {
+export const AuthButton = ({ children, className, ...rest }: AuthButtonProps) => {
   return (
     <div className="relative w-full h-16">
       <button
@@ -20,4 +20,4 @@ export default function AuthButton({ children, className, ...rest }: AuthButtonP
       </button>
     </div>
   );
-}
+};

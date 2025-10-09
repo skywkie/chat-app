@@ -1,9 +1,9 @@
-import SignIn from "@pages/sign-in";
-import SignUp from "@pages/sign-up";
+import { SignIn } from "@pages/sign-in";
+import { SignUp } from "@pages/sign-up";
 
 import { Navigate } from "react-router";
 
-const ROUTES = [
+export const ROUTES = [
   {
     path: "/",
     element: <Navigate to="/sign-in" />,
@@ -17,5 +17,3 @@ const ROUTES = [
     element: <SignUp />,
   },
 ];
-
-export default ROUTES;

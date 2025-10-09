@@ -2,9 +2,7 @@ type Range = readonly [number, number];
 
 type Ranges = Range[];
 
-type Exceptions = number[];
-
-export const isInRange = (number: number, range: Range) => {
+const isInRange = (number: number, range: Range) => {
   const start = range[0];
   const end = range[1];
 
@@ -16,17 +14,28 @@ export const isInRange = (number: number, range: Range) => {
   return start <= number && number <= end;
 };
 
-export const isValidStringCharCodes = (line: string, ranges: Ranges, exceptions?: Exceptions) => {
+const getUnionRange = (ranges: Ranges) => {
+  const rangeboundaries: number[] = [];
+
+  ranges.forEach((range) => rangeboundaries.push(...range));
+
+  const start = Math.min(...rangeboundaries);
+  const end = Math.max(...rangeboundaries);
+
+  return [start, end] as Range;
+};
+
+export const isValidStringCharCodes = (line: string, ranges: Ranges) => {
   let isValidStringCharCodes = true;
+
+  const unionRange = getUnionRange(ranges);
 
   for (const char of line) {
     const charCode = char.charCodeAt(0);
 
-    ranges.forEach((range) => {
-      if (!isInRange(charCode, range) || exceptions?.includes(charCode)) {
-        return (isValidStringCharCodes = false);
-      }
-    });
+    if (!isInRange(charCode, unionRange)) {
+      return (isValidStringCharCodes = false);
+    }
   }
 
   return isValidStringCharCodes;

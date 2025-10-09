@@ -9,10 +9,10 @@ interface AuthLinkPromptProps {
 
 export const AuthLinkPrompt = ({ children, linkText, to }: AuthLinkPromptProps) => {
   return (
-    <div>
+    <div className="cursor-pointer z-30">
       <p>
         {children}
-        <Link to={to} className="text-blue-700">
+        <Link to={to} className="text-blue-700 ">
           {linkText}
         </Link>
       </p>

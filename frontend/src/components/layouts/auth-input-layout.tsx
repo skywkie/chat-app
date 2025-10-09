@@ -8,7 +8,7 @@ interface AuthInputLayoutProps extends ComponentPropsWithoutRef<"div"> {
 export const AuthInputLayout = ({ children, className, ...rest }: AuthInputLayoutProps) => {
   return (
     <div
-      className={clsx("w-full flex items-center justify-center flex-col gap-12", className)}
+      className={clsx("w-full flex items-center justify-center flex-col gap-20", className)}
       {...rest}
     >
       {children}

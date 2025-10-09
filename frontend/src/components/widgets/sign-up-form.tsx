@@ -8,6 +8,7 @@ import { AuthInputSuggest } from "@ui/prompts/auth-input-suggest";
 import { AuthInputLayout } from "@layouts/auth-input-layout";
 
 import { validateUsername, validatePassword, validateRepeatPasswords } from "@utils/helpers/validators";
+import { VALIDATION_ERRORS } from "@utils/constants";
 
 interface UserData {
   username: string;
@@ -15,14 +16,20 @@ interface UserData {
   repeatPassword: string;
 }
 
+type Error = string[] | [];
+
 interface ErrorsData {
-  username?: string[];
-  password?: string[];
-  repeatPassword?: string[];
+  username: Error;
+  password: Error;
+  repeatPassword: Error;
 }
 
 export const SignUpForm = () => {
-  const [userData, setUserData] = useState<UserData>({ username: "", password: "", repeatPassword: "" });
+  const [userData, setUserData] = useState<UserData>({
+    username: "qweqweqwe",
+    password: "qweqweqwe",
+    repeatPassword: "qweqweqwe",
+  });
   const [validationErrors, setValidationErrors] = useState<ErrorsData>({
     username: [],
     password: [],
@@ -31,10 +38,9 @@ export const SignUpForm = () => {
 
   const onSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    if (!userData.username) validateForm("username");
-    if (!userData.password) validateForm("password");
-    if (!userData.repeatPassword) validateForm("repeatPassword");
+    if (Object.values(validationErrors).every((error: Error) => !error.length)) {
+      console.log(validationErrors);
+    }
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -43,45 +49,63 @@ export const SignUpForm = () => {
       [event.target.name]: event.target.value,
     });
 
-    validateForm(event.target.name);
+    validateInput(event.target.name, event.target.value);
   };
 
-  const validateForm = (inputType: string) => {
-    let validationInputsErrors: string[] = [];
+  const validateInput = (inputType: string, inputValue: string) => {
+    let validationInputsErrors: string[] | [] = [];
 
     switch (inputType) {
       case "username":
-        validationInputsErrors = validateUsername(userData.username);
+        validationInputsErrors = validateUsername(inputValue);
         break;
       case "password":
-        validationInputsErrors = validatePassword(userData.password);
-        console.log("test");
-
+        validationInputsErrors = validatePassword(inputValue);
         break;
       case "repeatPassword":
-        validationInputsErrors = validateRepeatPasswords(userData.password, userData.repeatPassword);
+        validationInputsErrors = validateRepeatPasswords(userData.password, inputValue);
         break;
     }
 
     if (validationInputsErrors) {
-      console.log(`@Validation ${inputType} ERROR`);
-
-      setValidationErrors({ ...validationErrors, [inputType]: validationInputsErrors });
+      setValidationErrors((prev) => ({ ...prev, [inputType]: validationInputsErrors }));
     }
   };
 
   return (
-    <form onSubmit={onSubmit} className="h-3/4 w-full flex flex-col items-center justify-evenly">
+    <form
+      onSubmit={onSubmit}
+      className="h-3/4 w-full lg:w-4/5 flex flex-col items-center justify-evenly"
+    >
       <AuthInputLayout className="h-7/10">
-        <AuthInput name="username" label="Username" onChange={onChange}>
-          {validationErrors.username && <AuthInputSuggest text={validationErrors.username} />}
+        <AuthInput name="username" label="Username" onChange={onChange} value={userData.username}>
+          {userData.username && (
+            <AuthInputSuggest text={VALIDATION_ERRORS.USERNAME} activeText={validationErrors.username} />
+          )}
         </AuthInput>
-        <AuthInput name="password" type="" label="Password" onChange={onChange}>
-          {validationErrors.password && <AuthInputSuggest text={validationErrors.password} />}
+        <AuthInput
+          name="password"
+          type="password"
+          label="Password"
+          onChange={onChange}
+          value={userData.password}
+        >
+          {userData.password && (
+            <AuthInputSuggest text={VALIDATION_ERRORS.PASSWORD} activeText={validationErrors.password} />
+          )}
         </AuthInput>
-        <AuthInput name="repeatPassword" type="" label="Repeat password" onChange={onChange}>
-          {validationErrors.repeatPassword && (
-            <AuthInputSuggest text={validationErrors.repeatPassword} />
+        <AuthInput
+          name="repeatPassword"
+          type="password"
+          label="Repeat password"
+          onChange={onChange}
+          value={userData.repeatPassword}
+        >
+          {userData.repeatPassword && (
+            <AuthInputSuggest
+              text={VALIDATION_ERRORS.REPEAT_PASSWOPRD}
+              activeText={validationErrors.repeatPassword}
+            />
           )}
         </AuthInput>
       </AuthInputLayout>

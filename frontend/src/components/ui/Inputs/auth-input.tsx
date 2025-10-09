@@ -9,7 +9,7 @@ interface AuthInputProps extends ComponentPropsWithoutRef<"input"> {
 
 export const AuthInput = ({ children, label, className, ...rest }: AuthInputProps) => {
   return (
-    <div className={clsx("relative w-1/2 min-w-50", className)}>
+    <div className={clsx("relative w-1/2 min-w-50 flex flex-col", className)}>
       <input
         className="border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700
 				transition-colors focus:outline-none peer bg-inherit w-full leading-9 text-2xl"

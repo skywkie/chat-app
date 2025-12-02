@@ -2,9 +2,11 @@ import { useState, type ChangeEvent } from "react";
 
 import { AuthInput } from "@ui/inputs/auth-input";
 import { AuthButton } from "@ui/buttons/auth-button";
+import { AuthLinkPrompt } from "@ui/prompts/auth-link";
 
 import { AuthInputLayout } from "@layouts/auth-input-layout";
-import { AuthLinkPrompt } from "@ui/prompts/auth-link";
+
+import { useAuth } from "@utils/hooks/useAuth";
 
 interface UserData {
   username: string;
@@ -12,10 +14,15 @@ interface UserData {
 }
 
 export const SignInForm = () => {
-  const [userData, setUserData] = useState<UserData>({ username: "", password: "" });
+  const [userData, setUserData] = useState<UserData>({ username: "qweqweqwe", password: "qweqweqwe" });
 
-  const onSubmit = (event: ChangeEvent<HTMLFormElement>) => {
+  const { signIn } = useAuth();
+
+  const onSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const response = await signIn(userData);
+    console.log(response);
   };
 
   // await fetch("http://localhost:5000/sign-up", {
@@ -32,10 +39,19 @@ export const SignInForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="h-2/3 w-full flex flex-col items-center justify-evenly">
+    <form
+      onSubmit={onSubmit}
+      className="h-3/4 w-full lg:w-4/5 flex flex-col items-center justify-evenly"
+    >
       <AuthInputLayout>
-        <AuthInput name="username" label="Username" onChange={onChange} />
-        <AuthInput name="password" label="Password" onChange={onChange} />
+        <AuthInput name="username" label="Username" onChange={onChange} value={userData.username} />
+        <AuthInput
+          name="password"
+          label="Password"
+          onChange={onChange}
+          type="password"
+          value={userData.password}
+        />
       </AuthInputLayout>
       <div>
         <AuthButton>Sign In</AuthButton>

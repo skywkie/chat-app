@@ -1,7 +1,6 @@
-import { SignIn } from "@pages/sign-in";
-import { SignUp } from "@pages/sign-up";
-
 import { Navigate } from "react-router";
+
+// const SignIn = React.lazy(() => import("@pages/sign-in"));
 
 export const ROUTES = [
   {
@@ -10,10 +9,17 @@ export const ROUTES = [
   },
   {
     path: "/sign-in",
-    element: <SignIn />,
+    lazy: lazyRoute(() => import("@pages/sign-in"), "SignIn"),
   },
   {
     path: "/sign-up",
-    element: <SignUp />,
+    lazy: lazyRoute(() => import("@pages/sign-up"), "SignUp"),
   },
 ];
+
+function lazyRoute<T>(importFn: () => Promise<T>, componentName: keyof T) {
+  return async () => {
+    const module = await importFn();
+    return { Component: module[componentName] };
+  };
+}

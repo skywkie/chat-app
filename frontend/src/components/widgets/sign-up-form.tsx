@@ -9,6 +9,7 @@ import { AuthInputLayout } from "@layouts/auth-input-layout";
 
 import { validateUsername, validatePassword, validateRepeatPasswords } from "@utils/helpers/validators";
 import { VALIDATION_ERRORS } from "@utils/constants";
+import { useAuth } from "@utils/hooks/useAuth";
 
 interface UserData {
   username: string;
@@ -36,10 +37,14 @@ export const SignUpForm = () => {
     repeatPassword: [],
   });
 
-  const onSubmit = (event: ChangeEvent<HTMLFormElement>) => {
+  const { signUp } = useAuth();
+
+  const onSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (Object.values(validationErrors).every((error: Error) => !error.length)) {
-      console.log(validationErrors);
+      const response = await signUp(userData);
+
+      console.log(response);
     }
   };
 

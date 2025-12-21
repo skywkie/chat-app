@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { Activity, useState, type ChangeEvent, type Dispatch, type SetStateAction } from "react";
 
 import { AuthInput } from "@ui/inputs/auth-input";
 import { AuthButton } from "@ui/buttons/auth-button";
@@ -11,7 +11,7 @@ import { validateUsername, validatePassword, validateRepeatPasswords } from "@ut
 import { VALIDATION_ERRORS } from "@utils/constants";
 import { useAuth } from "@utils/hooks/useAuth";
 
-interface UserData {
+interface RequestUserData {
   username: string;
   password: string;
   repeatPassword: string;
@@ -26,22 +26,27 @@ interface ErrorsData {
 }
 
 export const SignUpForm = () => {
-  const [userData, setUserData] = useState<UserData>({
+  const [userData, setUserData] = useState<RequestUserData>({
     username: "qweqweqwe",
     password: "qweqweqwe",
     repeatPassword: "qweqweqwe",
   });
+
   const [validationErrors, setValidationErrors] = useState<ErrorsData>({
     username: [],
     password: [],
     repeatPassword: [],
   });
 
-  const { signUp } = useAuth();
+  const { signUp, isLoading } = useAuth();
 
   const onSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (Object.values(validationErrors).every((error: Error) => !error.length)) {
+
+    // prettier-ignore
+    const isValidationCorrect = () => Object.values(validationErrors).every((error: Error) => !error.length);
+
+    if (isValidationCorrect()) {
       const response = await signUp(userData);
 
       console.log(response);
@@ -49,31 +54,37 @@ export const SignUpForm = () => {
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name: inputName, value: inputValue } = event.target;
+
     setUserData({
       ...userData,
-      [event.target.name]: event.target.value,
+      [inputName]: inputValue,
     });
 
-    validateInput(event.target.name, event.target.value);
+    validateInput(inputName, inputValue);
   };
 
   const validateInput = (inputType: string, inputValue: string) => {
-    let validationInputsErrors: string[] | [] = [];
+    const getValidationErrors = () => {
+      switch (inputType) {
+        case "username":
+          return validateUsername(inputValue);
+        case "password":
+          setValidationErrors((prev) => ({
+            ...prev,
+            repeatPassword: validateRepeatPasswords(userData.repeatPassword, inputValue),
+          }));
 
-    switch (inputType) {
-      case "username":
-        validationInputsErrors = validateUsername(inputValue);
-        break;
-      case "password":
-        validationInputsErrors = validatePassword(inputValue);
-        break;
-      case "repeatPassword":
-        validationInputsErrors = validateRepeatPasswords(userData.password, inputValue);
-        break;
-    }
+          return validatePassword(inputValue);
+        default:
+          return validateRepeatPasswords(userData.password, inputValue);
+      }
+    };
 
-    if (validationInputsErrors) {
-      setValidationErrors((prev) => ({ ...prev, [inputType]: validationInputsErrors }));
+    let validationInputErrors: string[] | [] = getValidationErrors();
+
+    if (validationInputErrors) {
+      setValidationErrors((prev) => ({ ...prev, [inputType]: validationInputErrors }));
     }
   };
 
@@ -84,9 +95,9 @@ export const SignUpForm = () => {
     >
       <AuthInputLayout className="h-7/10">
         <AuthInput name="username" label="Username" onChange={onChange} value={userData.username}>
-          {userData.username && (
+          <Activity mode={userData.username ? "visible" : "hidden"}>
             <AuthInputSuggest text={VALIDATION_ERRORS.USERNAME} activeText={validationErrors.username} />
-          )}
+          </Activity>
         </AuthInput>
         <AuthInput
           name="password"
@@ -95,9 +106,9 @@ export const SignUpForm = () => {
           onChange={onChange}
           value={userData.password}
         >
-          {userData.password && (
+          <Activity mode={userData.password ? "visible" : "hidden"}>
             <AuthInputSuggest text={VALIDATION_ERRORS.PASSWORD} activeText={validationErrors.password} />
-          )}
+          </Activity>
         </AuthInput>
         <AuthInput
           name="repeatPassword"
@@ -106,16 +117,16 @@ export const SignUpForm = () => {
           onChange={onChange}
           value={userData.repeatPassword}
         >
-          {userData.repeatPassword && (
+          <Activity mode={userData.repeatPassword ? "visible" : "hidden"}>
             <AuthInputSuggest
               text={VALIDATION_ERRORS.REPEAT_PASSWOPRD}
               activeText={validationErrors.repeatPassword}
             />
-          )}
+          </Activity>
         </AuthInput>
       </AuthInputLayout>
       <div>
-        <AuthButton>Sign In</AuthButton>
+        <AuthButton isLoading={isLoading}>Sign Up</AuthButton>
         <AuthLinkPrompt to="/sign-in" linkText="Sign In">
           Already have an account?{" "}
         </AuthLinkPrompt>

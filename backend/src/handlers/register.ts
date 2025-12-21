@@ -11,7 +11,7 @@ export const registerHandler = async (request: Request, response: Response) => {
     const errors = validationResult(request);
 
     if (!errors.isEmpty()) {
-      return response.status(400).send({ success: false, message: "Validation error", errors });
+      return response.status(400).send({ isSuccess: false, message: "Validation error", errors });
     }
 
     const userData: RequestUserData = request.body;
@@ -21,12 +21,12 @@ export const registerHandler = async (request: Request, response: Response) => {
     if (existingUser)
       return response
         .status(400)
-        .send({ success: false, message: "A user with a similar username already exists." });
+        .send({ isSuccess: false, message: "A user with a similar username already exists." });
 
     createUser(userData);
 
-    response.status(201).send({ success: true, message: "Success account registration" });
+    response.status(201).send({ isSuccess: true, message: "Success account registration" });
   } catch (error) {
-    return response.status(400).send({ success: false, message: "Register error", error });
+    return response.status(400).send({ isSuccess: false, message: "Register error", error });
   }
 };

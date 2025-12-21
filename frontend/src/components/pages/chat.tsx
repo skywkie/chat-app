@@ -1,3 +1,3 @@
-export default function Chat() {
+export const Chat = () => {
   return <div></div>;
-}
+};

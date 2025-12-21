@@ -11,7 +11,7 @@ export const loginHandler = async (request: Request, response: Response) => {
     const errors = validationResult(request);
 
     if (!errors.isEmpty()) {
-      return response.status(400).send({ success: false, message: "Validation error", errors });
+      return response.status(400).send({ isSuccess: false, message: "Validation error", errors });
     }
 
     const userData: RequestUserData = request.body;
@@ -21,15 +21,15 @@ export const loginHandler = async (request: Request, response: Response) => {
     if (!existingUser)
       return response
         .status(400)
-        .send({ success: false, message: "A user with a similar username does not exists." });
+        .send({ isSuccess: false, message: "A user with a similar username does not exists." });
     const { hashPassword } = existingUser;
 
     const result = bcrypt.compareSync(password, hashPassword);
     if (!result)
-      return response.status(400).send({ success: false, message: "Password does not matches" });
+      return response.status(400).send({ isSuccess: false, message: "Password does not matches" });
 
-    response.status(201).send({ success: true, message: "Success login to account" });
+    response.status(200).send({ isSuccess: true, message: "Success login to account" });
   } catch (error) {
-    return response.status(400).send({ success: false, message: "Login error", error });
+    return response.status(400).send({ isSuccess: false, message: "Login error", error });
   }
 };

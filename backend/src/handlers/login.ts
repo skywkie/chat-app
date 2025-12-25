@@ -22,13 +22,13 @@ export const loginHandler = async (request: Request, response: Response) => {
       return response
         .status(400)
         .send({ isSuccess: false, message: "A user with a similar username does not exists." });
-    const { hashPassword } = existingUser;
+    const { hashPassword, ...existingUserWithoutPassword } = existingUser;
 
     const result = bcrypt.compareSync(password, hashPassword);
     if (!result)
       return response.status(400).send({ isSuccess: false, message: "Password does not matches" });
 
-    response.status(200).send({ isSuccess: true, message: "Success login to account" });
+    response.status(200).send({ isSuccess: true, user: existingUserWithoutPassword, message: "Success login to account" });
   } catch (error) {
     return response.status(400).send({ isSuccess: false, message: "Login error", error });
   }

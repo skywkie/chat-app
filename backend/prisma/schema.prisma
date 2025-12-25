@@ -15,8 +15,7 @@ model Users {
 
 	firstName  					String?
   lastName   					String?
-	age									Int?
 	personalInfo				String?
-	dateOfBirth				  DateTime? @default(now())
+	dateOfBirth				  DateTime?
   dateOfRegistration  DateTime? @default(now())
 }

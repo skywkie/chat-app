@@ -1,4 +1,4 @@
-import { Activity, useState, type ChangeEvent, type Dispatch, type SetStateAction } from "react";
+import { Activity, useState, type ChangeEvent } from "react";
 
 import { AuthInput } from "@ui/inputs/auth-input";
 import { AuthButton } from "@ui/buttons/auth-button";
@@ -81,7 +81,7 @@ export const SignUpForm = () => {
       }
     };
 
-    let validationInputErrors: string[] | [] = getValidationErrors();
+    const validationInputErrors: string[] | [] = getValidationErrors();
 
     if (validationInputErrors) {
       setValidationErrors((prev) => ({ ...prev, [inputType]: validationInputErrors }));

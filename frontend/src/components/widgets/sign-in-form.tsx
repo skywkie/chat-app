@@ -16,7 +16,7 @@ interface UserData {
 export const SignInForm = () => {
   const [userData, setUserData] = useState<UserData>({ username: "qweqweqwe", password: "qweqweqwe" });
 
-  const { signIn } = useAuth();
+  const { signIn, isLoading } = useAuth();
 
   const onSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,12 +24,6 @@ export const SignInForm = () => {
     const response = await signIn(userData);
     console.log(response);
   };
-
-  // await fetch("http://localhost:5000/sign-up", {
-  //   method: "POST",
-  //   body: JSON.stringify(userData),
-  //   headers: { "Content-type": "application/json" },
-  // }).then((res) => console.log(res));
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUserData({
@@ -54,7 +48,7 @@ export const SignInForm = () => {
         />
       </AuthInputLayout>
       <div>
-        <AuthButton>Sign In</AuthButton>
+        <AuthButton isLoading={isLoading}>Sign In</AuthButton>
         <AuthLinkPrompt to="/sign-up" linkText="Create an account">
           New here?{" "}
         </AuthLinkPrompt>

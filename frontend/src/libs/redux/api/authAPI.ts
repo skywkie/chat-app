@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { BASE_SERVER_AUTH_URL } from "@utils/constants";
-import type { AuthState, RequestUserData, ResponseSignIn } from "@utils/types";
+import type { RequestUserData, ResponseAuth } from "@utils/types";
 
 const authBaseQuery = fetchBaseQuery({
   baseUrl: BASE_SERVER_AUTH_URL,
@@ -12,11 +12,11 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: authBaseQuery,
   endpoints: (builder) => ({
-    signUp: builder.mutation<AuthState, RequestUserData>({
+    signUp: builder.mutation<ResponseAuth, RequestUserData>({
       // <responseType, resquestType>
       query: (userData) => ({ url: "/sign-up", body: userData }),
     }),
-    signIn: builder.mutation<ResponseSignIn, RequestUserData>({
+    signIn: builder.mutation<ResponseAuth, RequestUserData>({
       // void => коды 200, 201
       query: (userData) => ({ url: "/sign-in", body: userData }),
     }),

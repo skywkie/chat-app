@@ -1,15 +1,20 @@
-// const withAuth = (Component) => {
-//   return (props) => {
-//     if (!isAuthenticated()) {
-//       return <Redirect to="/login" />;
-//     }
-//     return <Component {...props} />;
-//   };
-// };
+import { Navigate } from "react-router";
 
-// // Навигация
-// <Route path="/home" component={withAuth(Home)} />;
+import { useAuth } from "@utils/hooks/useAuth";
+import type { ReactNode } from "react";
 
-// // Компонент
-// const Component = (props) => <div></div>;
-// export default withAuth(Component);
+interface WithAuthProps {
+  children: ReactNode;
+  redirectPath: string;
+  reversed: boolean;
+}
+
+export const WithAuth = ({ children, redirectPath = "/", reversed = false }: WithAuthProps) => {
+  const { isAuthenticated } = useAuth();
+
+  if ((!isAuthenticated && !reversed) || (isAuthenticated && reversed)) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return children;
+};

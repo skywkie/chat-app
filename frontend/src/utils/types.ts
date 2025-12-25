@@ -7,7 +7,7 @@ export interface UserData {
 }
 
 export interface AuthState {
-  user: UserData | null;
+  user: Partial<UserData> | null;
   isAuthenticated: boolean;
 }
 
@@ -16,7 +16,7 @@ export interface RequestUserData {
   password: string;
 }
 
-export interface ResponseSignIn {
-  user: UserData;
+export interface ResponseAuth {
+  user: Partial<UserData>;
   isSuccess: boolean;
 }

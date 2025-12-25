@@ -2,7 +2,7 @@ type Range = readonly [number, number];
 
 type Ranges = Range[];
 
-const isInRange = (number: number, range: Range) => {
+export const isInRange = (number: number, range: Range) => {
   const start = range[0];
   const end = range[1];
 

@@ -15,7 +15,7 @@ export const createUser = async (userData: RequestUserData) => {
     const hashPassword = bcrypt.hashSync(password, salt);
 
     await prisma.users.create({
-      data: { id: nanoid(), username, hashPassword, createdAt: new Date() },
+      data: { id: nanoid(), username, hashPassword, dateOfRegistration: new Date() },
     });
   } catch (error) {
     console.log("@createUser CATCH ERROR", error);

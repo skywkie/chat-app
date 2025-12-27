@@ -9,8 +9,13 @@ datasource db {
 }
 
 model Users {
-  id           String   @id
-  username     String   @unique
-  hashPassword String
-  createdAt    DateTime @default(now())
+  id          				String   	@id
+  username    				String   	@unique
+  hashPassword 				String
+
+	firstName  					String?
+  lastName   					String?
+	personalInfo				String?
+	dateOfBirth				  DateTime?
+  dateOfRegistration  DateTime? @default(now())
 }

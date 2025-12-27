@@ -4,9 +4,10 @@ import clsx from "clsx";
 
 interface AuthButtonProps extends ComponentPropsWithoutRef<"button"> {
   children: ReactNode;
+  isLoading: boolean;
 }
 
-export const AuthButton = ({ children, className, ...rest }: AuthButtonProps) => {
+export const AuthButton = ({ children, className, isLoading, ...rest }: AuthButtonProps) => {
   return (
     <div className="relative w-full h-16">
       <button
@@ -15,8 +16,9 @@ export const AuthButton = ({ children, className, ...rest }: AuthButtonProps) =>
           className,
         )}
         {...rest}
+        disabled={isLoading}
       >
-        {children}
+        {isLoading ? "Loading..." : children}
       </button>
     </div>
   );

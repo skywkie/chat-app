@@ -5,13 +5,18 @@
   "scripts": {
     "dev-all": "concurrently \"pnpm dev-client\" \"pnpm dev-server\"",
     "dev-client": "cd frontend && pnpm dev",
-    "dev-server": "cd backend && pnpm dev"
+    "dev-server": "cd backend && pnpm dev",
+    "lint-frontend": "cd frontend && pnpm lint && pnpm prettier-run && pnpm lint:css:fix",
+    "lint-backend": "cd backend && pnpm lint",
+    "lint-staged": "concurrently \"pnpm lint-frontend\" \"pnpm lint-backend\"",
+    "prepare": "husky"
   },
   "author": "skywkie",
   "license": "MIT",
   "packageManager": "pnpm@10.12.3",
   "devDependencies": {
     "concurrently": "^9.2.0",
+    "husky": "^9.1.7",
     "prettier": "3.6.2"
   }
 }
